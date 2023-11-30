@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <form action="{% url 'warmup' %}" method="GET">
+      <label>
+        <p>What text would you like repeated?</p>
+        <input type="text" name="repeatedtext" />
+      </label>
+
+      <label>
+        <p>How many times do you want it repeated?</p>
+        <input type="text" name="timesrepeated" />
+      </label>
+
+      <button>Submit</button>
+    </form>
+
+    {% if result is not None %}
+    <p>{{result}}</p>
+    {% endif %}
+  </body>
+</html>

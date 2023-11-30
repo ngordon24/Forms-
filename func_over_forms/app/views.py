@@ -1,47 +1,44 @@
 from django.shortcuts import render
-
-# Create your views here.
-
-from django.shortcuts import render
-from app.forms import AgeForm, HelloForm, OrderForm
+from app.forms import heyForm, ageInForm, orderForm
 
 
-# Create your views here.
-def calc(request: HttpRequest):
-    form = AgeForm(request.GET)
+def hey(request):
+    form = heyForm(request.GET)
     if form.is_valid():
-        X = form.cleaned_data["X"]
-        Y = form.cleaned_data["Y"]
-        answer = X - Y
+        name = (form.cleaned_data["name"]).upper()
+        return render(request, "hey.html", {"name": name})
+    else:
+        return render(request, "hey.html")
+
+
+def agein(request):
+    form = ageInForm(request.GET)
+    if form.is_valid():
+        birthyear = form.cleaned_data["birthyear"]
+        endyear = form.cleaned_data["endyear"]
+        agein = endyear - birthyear
         return render(
-            request, "calc.html", {"form": form, "X": X, "Y": Y, "answer": answer}
+            request,
+            "agein.html",
+            {"birthyear": birthyear, "endyear": endyear, "agein": agein},
         )
     else:
-        return render(request, "calc.html", {"form": AgeForm()})
+        return render(request, "agein.html")
 
 
-def hello(request: HttpRequest):
-    form = HelloForm(request.GET)
+def order(request):
+    form = orderForm(request.GET)
     if form.is_valid():
-        Name = form.cleaned_data["Name"]
-        return render(request, "Hello.html", {"form": form, "Name": Name})
-    else:
-        return render(request, "Hello.html", {"form": form})
+        burger = form.cleaned_data["burger"] * 4.5
+        fries = form.cleaned_data["fries"] * 1.5
+        drink = form.cleaned_data["drink"]
 
-
-def order(request: HttpRequest):
-    form = OrderForm(request.GET)
-    if form.is_valid():
-        Burgers = form.cleaned_data["Burgers"]
-        Fries = form.cleaned_data["Fries"]
-        Drinks = form.cleaned_data["Drinks"]
-
-        total = Burgers * 4.50 + Fries * 1.5 + Drinks * 1
+        totalCost = burger + fries + drink
 
         return render(
             request,
-            "Order.html",
-            {"Burger": Burgers, "Fries": Fries, "Drinks": Drinks, "total": total},
+            "order.html",
+            {"burger": burger, "fries": fries, "drink": drink, "totalCost": totalCost},
         )
     else:
-        return render(request, "Order.html", {"form": form})
+        return render(request, "order.html")

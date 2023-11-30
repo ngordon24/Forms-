@@ -1,16 +1,16 @@
 from django import forms
 
 
-class AgeForm(forms.Form):
-    X = forms.IntegerField(required=True)
-    Y = forms.IntegerField(required=True)
+class heyForm(forms.Form):
+    name = forms.CharField()
 
 
-class HelloForm(forms.Form):
-    Name = forms.CharField()
+class ageInForm(forms.Form):
+    birthyear = forms.IntegerField()
+    endyear = forms.IntegerField()
 
 
-class OrderForm(forms.Form):
-    Burgers = forms.IntegerField()
-    Fries = forms.IntegerField()
-    Drinks = forms.IntegerField()
+class orderForm(forms.Form):
+    burger = forms.IntegerField()
+    fries = forms.IntegerField()
+    drink = forms.IntegerField()
